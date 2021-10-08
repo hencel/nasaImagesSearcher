@@ -1,9 +1,9 @@
 <form class="my-5">
     <div class="form-group">
       <div class="input-group mb-3">
-        <input class="form-control" id="searcher" aria-describedby="searcher" [placeholder]="placeholderText" />
+        <input class="form-control" id="searcher" aria-describedby="searcher" [placeholder]="placeholderText" #searcher />
         <div class="input-group-append">
-          <app-button [buttonClasses]="buttonClasses" [buttonText]="buttonText"></app-button>
+          <app-button [buttonClasses]="buttonClasses" [buttonText]="buttonText" (clickSubmit)="clickSubmit(searcher.value)"></app-button>
         </div>
       </div>
     </div>
