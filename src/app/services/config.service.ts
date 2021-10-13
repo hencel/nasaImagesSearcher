@@ -19,6 +19,11 @@ export class ConfigService {
 
   errorHandler(error: HttpErrorResponse) {
     return Observable.throw(error.message);
-}
+  } 
+
+  askJson(address: string):Observable<string> {
+    return this.http.get<string>(address)
+    .pipe(catchError(this.errorHandler))
+  }
 
 }

@@ -3,3 +3,9 @@ export interface DataModel {
         items: []
     }
 }
+
+export interface ImageItem {
+    preview?: string, 
+    fullImage?: string, 
+    title?: string
+}

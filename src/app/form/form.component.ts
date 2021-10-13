@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ConfigService } from '../services/config.service';
+import { ImageItem } from '../models/DataModel';
 
 @Component({
   selector: 'app-form',
@@ -16,19 +17,52 @@ export class FormComponent {
     this.service = service;
   }
 
-  submitValue: string = '';
+  valueToSubmit: string = '';
+  imagesList: Array<ImageItem> = [];
 
-  clickSubmit(value: string) {
-    if(value.length > 0) {
-      this.submitValue = value;
-      this.submitData(value);
+  onKey(event: any) {
+    this.valueToSubmit = event.target.value;
+  }
+
+
+  clickSubmit() {
+    if(this.valueToSubmit.length > 0) {
+      this.submitData(this.valueToSubmit);
     }
+  }
+
+  enterClick() {
+    event?.preventDefault();
+    this.clickSubmit();
   }
 
   submitData(text: string):void {
     this.service.askApi(text).subscribe((res) => {
-      console.log(res)
-    });;
+      if(res.collection.items.length > 0) {
+        this.getImagesList(res.collection.items);
+      }
+    });
+  }
+
+  getImagesList(array: any) {
+    array.forEach((el: any) => {
+      if(el.links && el.data[0].media_type == 'image') {
+        let i:number = 0;
+        let fullImageLink:string = '';
+        let temp: ImageItem = {preview: el.links[0].href, fullImage: fullImageLink, title: el.data[0].title};
+        this.imagesList.push(temp)
+        i++;
+        // const promisedData = this.service.askJson(el.href).toPromise();
+        // promisedData.then((data)=>{
+        //   fullImageLink = data[0];
+        //   previewImageLink = data[3];
+        //   title = el.data[0].title;
+        //   let temp: ImageItem = {preview: previewImageLink , fullImage: fullImageLink, title: title};
+        //   // console.log(temp)
+        // }) 
+      }
+    });
+    console.log(this.imagesList)
   }
 
 }
