@@ -5,6 +5,14 @@
     <app-form 
         placeholderText="Search images..." 
         buttonText="Search"
-        buttonClasses="btn btn-primary">
+        buttonClasses="btn btn-primary"
+        (prepareLists)="prepareLists($event)"
+        >
     </app-form>
+    <div *ngIf="imagesList.length > 0" class="row"> 
+        <div *ngFor="let image of imagesList" class="col-12 col-md-6 col-lg-4 imageItem d-flex flex-column">
+            <img src="{{image.preview}}" />
+            <span>{{image.title}}</span>
+        </div>
+    </div>
 </section>
