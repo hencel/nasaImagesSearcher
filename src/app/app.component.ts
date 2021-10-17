@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { ImageItem } from './models/DataModel';
 
 @Component({
@@ -9,7 +9,7 @@ import { ImageItem } from './models/DataModel';
 export class AppComponent {
   title = 'nasaImagesSearcher';
 
-  @Input() imagesList: ImageItem[] = [];
+  imagesList: ImageItem[] = [];
 
   prepareLists(data: ImageItem[]) {
     this.imagesList = this.getImagesList(data);
