@@ -1,15 +1,35 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ImageItem } from './models/DataModel';
+import { ConfigService } from './services/config.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'nasaImagesSearcher';
 
   @Input() imagesList: ImageItem[] = [];
+
+  constructor(private service: ConfigService) {
+    this.service = service;
+  }
+
+  ngOnInit() {
+    const promisedData = this.service.askJson('https://api.nasa.gov/planetary/apod?api_key=Vt2z1OTUju2KsiPLqKd759q14WMznQFr5DJkrrzL').toPromise();
+    const url = promisedData.then((data: any) => {
+      for (const [key, value] of Object.entries(data)) {
+        if(key == 'url') {
+          this.showImageOfTheDay(value)
+        }
+      }
+    })
+  }
+
+  showImageOfTheDay(imageUrl: any) {
+
+  } 
 
   prepareLists(data: ImageItem[]) {
     this.imagesList = this.getImagesList(data);
