@@ -10,7 +10,7 @@ import { ConfigService } from './services/config.service';
 export class AppComponent implements OnInit {
   title = 'nasaImagesSearcher';
 
-  @Input() imagesList: ImageItem[] = [];
+  imagesList: ImageItem[] = [];
 
   constructor(private service: ConfigService) {
     this.service = service;
