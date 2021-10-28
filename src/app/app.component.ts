@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ImageItem } from './models/DataModel';
 import { ConfigService } from './services/config.service';
 
@@ -11,6 +11,7 @@ export class AppComponent implements OnInit {
   title = 'nasaImagesSearcher';
 
   imagesList: ImageItem[] = [];
+  backgroundAddress: any = '';
 
   constructor(private service: ConfigService) {
     this.service = service;
@@ -21,15 +22,11 @@ export class AppComponent implements OnInit {
     const url = promisedData.then((data: any) => {
       for (const [key, value] of Object.entries(data)) {
         if(key == 'url') {
-          this.showImageOfTheDay(value)
+          this.backgroundAddress = value;
         }
       }
     })
   }
-
-  showImageOfTheDay(imageUrl: any) {
-
-  } 
 
   prepareLists(data: ImageItem[]) {
     this.imagesList = this.getImagesList(data);
