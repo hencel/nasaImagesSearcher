@@ -1,6 +1,9 @@
 <div *ngIf="imagesList.length > 0" class="row"> 
-    <div *ngFor="let image of imagesList" class="col-12 col-md-6 col-lg-4 imageItem d-flex flex-column">
-        <img src="{{image.preview}}" />
-        <span class="text-center mt-1">{{image.title}}</span>
+    <div *ngFor="let image of imagesList" class="col-12 col-md-6 col-lg-4 d-flex flex-column justify-content-center">
+        <a href="{{image.preview}}" target="_blank" class="imageItem d-flex flex-column">
+            <img src="{{image.preview}}" />
+        </a>
+        <span class="text-center">{{image.title}}</span>
+        <a href="{{image.fullImage}}" target="_blank" class="text-center">Download full image</a>
     </div>
 </div>
