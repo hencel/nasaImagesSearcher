@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ImageItem } from './models/DataModel';
+import { ImageItem, ButtonsArray } from './models/DataModel';
 import { ConfigService } from './services/config.service';
 
 @Component({
@@ -12,6 +12,8 @@ export class AppComponent implements OnInit {
 
   imagesList: ImageItem[] = [];
   backgroundAddress: any = '';
+  buttonsArray: ButtonsArray[] = [];
+
 
   constructor(private service: ConfigService) {
     this.service = service;
@@ -45,7 +47,10 @@ export class AppComponent implements OnInit {
         }) 
       }
     });
-    console.log(tempList)
     return tempList;
+  }
+
+  getButtonsArray(data: ButtonsArray[]) {
+    //prapared buttons data in app component
   }
 }

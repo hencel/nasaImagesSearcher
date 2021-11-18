@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ConfigService } from '../services/config.service';
-import { ImageItem } from '../models/DataModel';
+import { ImageItem, ButtonsArray } from '../models/DataModel';
 
 @Component({
   selector: 'app-form',
@@ -14,6 +14,7 @@ export class FormComponent {
   @Input() buttonClasses: string = '';
 
   @Output() prepareLists = new EventEmitter< ImageItem[] >();
+  @Output() buttonsArray = new EventEmitter< ButtonsArray[]>();
 
   constructor(private service: ConfigService) {
     this.service = service;
@@ -39,11 +40,20 @@ export class FormComponent {
 
   submitData(text: string):void {
     this.service.askApi(text).subscribe((res) => {
-
       if(res.collection.items.length > 0) {
         this.prepareLists.emit(res.collection.items);
       }
+      if(res.collection.links.length > 0 ) {
+        this.findPossibleButtons(res.collection.links)
+
+      }
     });
+  }
+
+  findPossibleButtons(array: any) {
+    array.forEach((el: any) =>  {
+      this.buttonsArray.emit(el)
+    })
   }
 
   
