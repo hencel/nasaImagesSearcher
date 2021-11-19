@@ -7,8 +7,12 @@
         buttonText="Search"
         buttonClasses="btn btn-primary"
         (prepareLists)="prepareLists($event)"
-        (buttonsArray)="getButtonsArray($event)"
+        (buttonsArray)="showButtonsArray($event)"
         >
     </app-form>
     <app-display-area [imagesList]="imagesList"></app-display-area>
+    <div class="d-flex justify-content-end my-4">
+        <app-button *ngIf="buttonStatusPrev" [buttonClasses]="buttonClasses" [buttonText]="buttonTextPrev"></app-button>
+        <app-button *ngIf="buttonStatusNext" [buttonClasses]="buttonClasses" [buttonText]="buttonTextNext"></app-button>
+    </div>
 </section>

@@ -44,18 +44,10 @@ export class FormComponent {
         this.prepareLists.emit(res.collection.items);
       }
       if(res.collection.links.length > 0 ) {
-        this.findPossibleButtons(res.collection.links)
+        this.buttonsArray.emit(res.collection.links);
 
       }
     });
   }
-
-  findPossibleButtons(array: any) {
-    array.forEach((el: any) =>  {
-      this.buttonsArray.emit(el)
-    })
-  }
-
-  
 
 }
