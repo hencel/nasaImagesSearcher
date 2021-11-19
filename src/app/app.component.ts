@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ImageItem, ButtonsArray } from './models/DataModel';
 import { ConfigService } from './services/config.service';
 
@@ -13,7 +13,14 @@ export class AppComponent implements OnInit {
   imagesList: ImageItem[] = [];
   backgroundAddress: any = '';
   buttonsArray: ButtonsArray[] = [];
+  buttonStatusPrev:boolean = false;
+  buttonStatusNext:boolean = false;
 
+  @Input() buttonTextPrev: string = 'Prev';
+  @Input() buttonTextNext: string = 'Next'
+  @Input() buttonClasses: string = 'btn btn-primary btn-lg';
+  @Input() buttonAddressPrev: string = '';
+  @Input() buttonAddressNext: string = ''
 
   constructor(private service: ConfigService) {
     this.service = service;
@@ -50,7 +57,15 @@ export class AppComponent implements OnInit {
     return tempList;
   }
 
-  getButtonsArray(data: ButtonsArray[]) {
-    //prapared buttons data in app component
+  showButtonsArray(data: ButtonsArray[]) {
+    data.forEach((el:any) => {
+      if(el.rel == 'prev') {
+        this.buttonStatusPrev = true;
+        this.buttonAddressPrev= el.href;
+      } else {
+        this.buttonStatusNext = true;
+        this.buttonAddressNext = el.href;
+      }
+    })
   }
 }
