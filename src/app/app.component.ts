@@ -10,6 +10,8 @@ import { ConfigService } from './services/config.service';
 export class AppComponent implements OnInit {
   title = 'nasaImagesSearcher';
 
+  configUrl:string = 'https://images-api.nasa.gov/search?q=';
+
   imagesList: ImageItem[] = [];
   backgroundAddress: any = '';
   buttonsArray: ButtonsArray[] = [];
@@ -18,9 +20,10 @@ export class AppComponent implements OnInit {
 
   @Input() buttonTextPrev: string = 'Prev';
   @Input() buttonTextNext: string = 'Next'
-  @Input() buttonClasses: string = 'btn btn-primary btn-lg';
+  @Input() buttonClasses: string = 'btn btn-primary btn-lg mx-2';
   @Input() buttonAddressPrev: string = '';
   @Input() buttonAddressNext: string = ''
+  @Input() searchedText: string = '';
 
   constructor(private service: ConfigService) {
     this.service = service;
@@ -37,8 +40,20 @@ export class AppComponent implements OnInit {
     })
   }
 
-  prepareLists(data: ImageItem[]) {
-    this.imagesList = this.getImagesList(data);
+  searchInit(searchedText: string) {
+    this.subscribeData(`${this.configUrl}${searchedText}`)
+  }
+
+  subscribeData(address: string):void { 
+    this.service.askApi(address).subscribe((res) => {
+      if(res.collection.items.length > 0) {
+        this.imagesList = this.getImagesList(res.collection.items);
+      }
+      if(res.collection.links.length > 0 ) {
+        this.showButtonsArray(res.collection.links);
+
+      }
+    });
   }
 
   getImagesList(array: any) {
@@ -61,11 +76,21 @@ export class AppComponent implements OnInit {
     data.forEach((el:any) => {
       if(el.rel == 'prev') {
         this.buttonStatusPrev = true;
-        this.buttonAddressPrev= el.href;
+        this.buttonAddressPrev= this.changeHttpToHttps(el.href)
       } else {
         this.buttonStatusNext = true;
-        this.buttonAddressNext = el.href;
+        this.buttonAddressNext = this.changeHttpToHttps(el.href)
       }
     })
+  }
+
+  changeHttpToHttps(text: string) {
+    return text.replace('http', 'https')
+  }
+
+  openOtherPage(event:any) {
+    event.target.id == 'next' ? 
+    this.subscribeData(this.buttonAddressNext) :
+    this.subscribeData(this.buttonAddressPrev)
   }
 }

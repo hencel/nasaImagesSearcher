@@ -13,8 +13,10 @@ export class FormComponent {
   @Input() buttonText: string = '';
   @Input() buttonClasses: string = '';
 
-  @Output() prepareLists = new EventEmitter< ImageItem[] >();
-  @Output() buttonsArray = new EventEmitter< ButtonsArray[]>();
+  @Output() inputText = new EventEmitter<string>();
+
+  // @Output() prepareLists = new EventEmitter< ImageItem[] >();
+  // @Output() buttonsArray = new EventEmitter< ButtonsArray[]>();
 
   constructor(private service: ConfigService) {
     this.service = service;
@@ -29,25 +31,13 @@ export class FormComponent {
 
   clickSubmit() {
     if(this.valueToSubmit.length > 0) {
-      this.submitData(this.valueToSubmit);
+      this.inputText.emit(this.valueToSubmit);
     }
   }
 
   enterClick() {
     event?.preventDefault();
     this.clickSubmit();
-  }
-
-  submitData(text: string):void {
-    this.service.askApi(text).subscribe((res) => {
-      if(res.collection.items.length > 0) {
-        this.prepareLists.emit(res.collection.items);
-      }
-      if(res.collection.links.length > 0 ) {
-        this.buttonsArray.emit(res.collection.links);
-
-      }
-    });
   }
 
 }
