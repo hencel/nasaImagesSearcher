@@ -6,13 +6,12 @@
         placeholderText="Search images..." 
         buttonText="Search"
         buttonClasses="btn btn-primary"
-        (prepareLists)="prepareLists($event)"
-        (buttonsArray)="showButtonsArray($event)"
-        >
+        (inputText)="searchInit($event)"
+    >
     </app-form>
     <app-display-area [imagesList]="imagesList"></app-display-area>
-    <div class="d-flex justify-content-end my-4">
-        <app-button *ngIf="buttonStatusPrev" [buttonClasses]="buttonClasses" [buttonText]="buttonTextPrev"></app-button>
-        <app-button *ngIf="buttonStatusNext" [buttonClasses]="buttonClasses" [buttonText]="buttonTextNext"></app-button>
+    <div class="d-flex justify-content-center my-4">
+        <app-button *ngIf="buttonStatusPrev" id="prev" [buttonClasses]="buttonClasses" [buttonText]="buttonTextPrev" (click)="openOtherPage($event)"></app-button>
+        <app-button *ngIf="buttonStatusNext" id="next" [buttonClasses]="buttonClasses" [buttonText]="buttonTextNext" (click)="openOtherPage($event)"></app-button>
     </div>
 </section>

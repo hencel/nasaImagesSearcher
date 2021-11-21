@@ -12,9 +12,9 @@ export class ConfigService {
 
   configUrl:string = 'https://images-api.nasa.gov/search?q=';
 
-  askApi(searchText: string):Observable<DataModel> {
-    return this.http.get<DataModel>(`${this.configUrl}${searchText}`)
-    .pipe(catchError(this.errorHandler))
+  askApi(address: string):Observable<DataModel> {
+    return this.http.get<DataModel>(address)
+    // .pipe(catchError(this.errorHandler))
   }
 
   errorHandler(error: HttpErrorResponse) {
@@ -25,5 +25,7 @@ export class ConfigService {
     return this.http.get<string>(address)
     .pipe(catchError(this.errorHandler))
   }
+
+  
 
 }
