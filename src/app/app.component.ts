@@ -73,10 +73,12 @@ export class AppComponent implements OnInit {
   }
 
   showButtonsArray(data: ButtonsArray[]) {
+    this.buttonStatusPrev = false;
+    this.buttonStatusNext = false;
     data.forEach((el:any) => {
       if(el.rel == 'prev') {
         this.buttonStatusPrev = true;
-        this.buttonAddressPrev= this.changeHttpToHttps(el.href)
+        this.buttonAddressPrev = this.changeHttpToHttps(el.href)
       } else {
         this.buttonStatusNext = true;
         this.buttonAddressNext = this.changeHttpToHttps(el.href)

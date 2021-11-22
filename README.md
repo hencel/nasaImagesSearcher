@@ -30,7 +30,5 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## To do:
 
-1. Add multipages of search results.
-2. Add pagination.
-3. Add history of last searching and clean history button.
-4. Mayby add better styling.
+1. Add history of last searching and clean history button.
+2. Mayby add better styling.
