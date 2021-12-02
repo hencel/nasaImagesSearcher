@@ -2,6 +2,8 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.7.
 
+Last released version of ready project you can find here: https://hencel.github.io/nasaImagesSearcher/
+
 Image Searcher will base on API shared by NASA Organisation. API contains mix of images from NASA mision out of our planet. The searcher will allow you to search interesting photos based on keywords. 
 
 ## Development server
