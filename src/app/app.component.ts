@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
   buttonsArray: ButtonsArray[] = [];
   buttonStatusPrev:boolean = false;
   buttonStatusNext:boolean = false;
+  errorMessage: string = '';
 
   @Input() buttonTextPrev: string = 'Prev';
   @Input() buttonTextNext: string = 'Next'
@@ -47,13 +48,16 @@ export class AppComponent implements OnInit {
   subscribeData(address: string):void { 
     this.service.askApi(address).subscribe((res) => {
       if(res.collection.items.length > 0) {
+        this.errorMessage = '';
         this.imagesList = this.getImagesList(res.collection.items);
-      }
-      if(res.collection.links.length > 0 ) {
         this.showButtonsArray(res.collection.links);
-
+      } else {
+        this.imagesList = [];
+        this.buttonStatusPrev = false;
+        this.buttonStatusNext = false;
+        this.errorMessage = 'Ooops! Try to change searched phrase or try again later';
       }
-    });
+    },error => this.errorMessage = 'Ooops! Problem with searching, try again later');
   }
 
   getImagesList(array: any) {

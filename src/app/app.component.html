@@ -9,7 +9,7 @@
         (inputText)="searchInit($event)"
     >
     </app-form>
-    <app-display-area [imagesList]="imagesList"></app-display-area>
+    <app-display-area [imagesList]="imagesList" [errorMessage]="errorMessage"></app-display-area>
     <div class="d-flex justify-content-center my-4">
         <app-button *ngIf="buttonStatusPrev" id="prev" [buttonClasses]="buttonClasses" [buttonText]="buttonTextPrev" (click)="openOtherPage($event)"></app-button>
         <app-button *ngIf="buttonStatusNext" id="next" [buttonClasses]="buttonClasses" [buttonText]="buttonTextNext" (click)="openOtherPage($event)"></app-button>

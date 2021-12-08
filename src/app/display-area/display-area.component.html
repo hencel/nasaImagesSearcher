@@ -1,4 +1,4 @@
-<div *ngIf="imagesList.length > 0" class="row"> 
+<div *ngIf="imagesList.length > 0; else errorTemplate" class="row d-flex justify-content-center"> 
     <div *ngFor="let image of imagesList" class="col-12 col-md-6 col-lg-4 d-flex flex-column justify-content-center">
         <a href="{{image.preview}}" target="_blank" class="imageItem d-flex flex-column">
             <img src="{{image.preview}}" />
@@ -7,3 +7,4 @@
         <a href="{{image.fullImage}}" target="_blank" class="text-center">Download full image</a>
     </div>
 </div>
+<ng-template #errorTemplate>{{errorMessage}}</ng-template>
