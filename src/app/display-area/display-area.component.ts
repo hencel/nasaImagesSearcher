@@ -9,5 +9,6 @@ import { ImageItem } from '../models/DataModel';
 export class DisplayAreaComponent {
 
   @Input() imagesList: ImageItem[] = [];
+  @Input() errorMessage: string = '';
 
 }
